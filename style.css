@@ -1,0 +1,103 @@
+/* .background{
+    background-color: rgb(206, 206, 206);
+    width: 100vw;
+    height: 100vh;
+    filter: blur(1px);
+}
+
+#droptarget{
+    width: 300px;
+    height: 300px;
+    background-color: gray;
+}
+ */
+
+ /* #css_canvas{
+    background-color: rgb(204, 204, 204);
+    width: 400px;
+    height: 400px;
+    border: 1px solid red;
+    position: absolute;
+    
+ }
+.circle_base{
+    width: 200px;
+    height: 200px;
+    border-radius: 1000px;
+    background-color: aquamarine;
+    position: absolute;
+    top: 23%;
+    left: 24%;
+}
+
+.ear_left{
+    width: 100px;
+    height: 100px;
+    border-radius: 1000px;
+    background-color: rgb(30, 70, 56);
+    position: absolute;
+    top: 15%;
+    left: 22%;
+}
+
+.ear_right{
+    width: 100px;
+    height: 100px;
+    border-radius: 1000px;
+    background-color: rgb(30, 70, 56);
+    position: absolute;
+    top: 15%;
+    right: 22%;
+} */
+
+
+
+.mickey {
+    width: 100px;
+    height: 100px;
+    background: rgb(236, 236, 236);
+    border-radius: 50%;
+    border: solid 4px black;
+    position: relative;
+     margin: 100px auto; /* boven 100 midden horizontaal */
+     --wiggle-duration: 3000ms;
+  }
+  
+  .mickey::before,
+  .mickey::after {
+    content: "";
+    width: 65px;
+    height: 65px;
+    background: whitesmoke;
+    border-top: solid 10px black;
+    border-radius: 50%;
+    position: absolute;
+  }
+  
+   .mickey::before { /*linkeroortje */
+    left: -30px;
+    top: -40px;
+    box-shadow: -6px -4px 0 #ff9fff;
+    border-left: solid 6px black;
+    border-right: solid 2px black;
+    animation: wiggleEar var(--wiggle-duration) 0ms infinite ease-in-out;
+  }
+  
+  .mickey::after { /*rechteroor */
+    right: -30px;
+    top: -40px;
+    box-shadow: 6px 0 0 #ff9fff;
+    border-right: solid 6px black;
+    border-left: solid 2px black;
+    animation: wiggleEar var(--wiggle-duration) 0ms infinite ease-in-out;
+  }
+
+  @keyframes wiggleEar{
+    0% {
+        transform: scale(1);
+    } 40% {
+        transform: scale(0.8);
+    } 100% {
+        transform: scale(1);
+    }
+  }
