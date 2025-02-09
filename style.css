@@ -49,55 +49,295 @@
     top: 15%;
     right: 22%;
 } */
+ 
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-behavior: smooth;
+}
+
+#main_frame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 80vh;
+}
 
 
+body{
+    background-color: rgb(6, 6, 6);
+}
+
+#main_frame > div:has(svg){
+    aspect-ratio: 1/1;
+    width: 48px;
+    position: fixed;
+    left: 2em;
+    top: 2em;
+}
+
+#main_frame svg{
+    fill: #ffffff;
+    fill-rule: evenodd;
+    stroke-width: 0px;
+}
+
+@font-face {
+    font-family: 'Mickey';
+    src: url('/font/mickey.ttf');
+}
+
+@font-face {
+    font-family: 'Minnie';
+    src: url('/font/minnie.ttf');
+}
+
+
+
+/* 
+section:first-of-type{
+    
+    width: fit-content;
+    display: flex;
+}
+
+section:first-of-type article{
+    width: 100vw;
+    width: fit-content;
+} */
+
+.cloudContainer h2{
+    font-family: 'Mickey';
+    font-size: 5em;
+    color: white;
+    margin-top: 100px;
+}
+
+.cloudContainer h3{
+    font-family: 'Minnie';
+    font-size: 3em;
+}
 
 .mickey {
-    width: 100px;
-    height: 100px;
-    background: rgb(236, 236, 236);
+    width: 130px;
+    height: 130px;
+    background: black;
     border-radius: 50%;
-    border: solid 4px black;
-    position: relative;
-     margin: 100px auto; /* boven 100 midden horizontaal */
-     --wiggle-duration: 3000ms;
-  }
-  
-  .mickey::before,
-  .mickey::after {
-    content: "";
-    width: 65px;
-    height: 65px;
-    background: whitesmoke;
-    border-top: solid 10px black;
+    position: fixed;
+    bottom: 32px;
+    right: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Hoofd moet boven oren blijven */
+}
+
+.ear {
+    width:  80px;
+    height: 80px;
+    background: black;
     border-radius: 50%;
     position: absolute;
-  }
-  
-   .mickey::before { /*linkeroortje */
-    left: -30px;
-    top: -40px;
-    box-shadow: -6px -4px 0 #ff9fff;
-    border-left: solid 6px black;
-    border-right: solid 2px black;
-    animation: wiggleEar var(--wiggle-duration) 0ms infinite ease-in-out;
-  }
-  
-  .mickey::after { /*rechteroor */
-    right: -30px;
-    top: -40px;
-    box-shadow: 6px 0 0 #ff9fff;
-    border-right: solid 6px black;
-    border-left: solid 2px black;
-    animation: wiggleEar var(--wiggle-duration) 0ms infinite ease-in-out;
-  }
+    top: -35px;
+    z-index: 1; /* Oren liggen achter het hoofd */
+    animation: wiggleEar 3s infinite ease-in-out alternate;
+}
 
-  @keyframes wiggleEar{
+.left-ear {
+    left: -40px;
+}
+
+.right-ear {
+    right: -40px;
+}
+
+@keyframes wiggleEar {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(0.9) rotate(-5deg); }
+    60% { transform: scale(1.05) rotate(3deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+ a{
+    backdrop-filter: blur(1px);
+    background-color: rgb(0, 94, 255);
+    border: #ffffff20 1px solid;
+    color: white;
+    border-radius: 10px;
+    opacity: 1;
+    font: "Inter";
+    font-weight: 600;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: min-content;
+    width: fit-content;
+    gap: 10px;
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    transition: 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+
+ }  a:hover{
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.323);
+    border:rgba(0, 94, 255, 0.748) 1px solid;
+    color: rgba(255, 255, 255, 0.945);
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    scale: 1.025;
+ }
+
+
+ a div{
+    aspect-ratio: 1/1;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+.cloudContainer{
+    animation: cloudyWobble 60s infinite ease-in-out;
+    width: fit-content;
+    height: fit-content;
+    user-select: none;
+    cursor: grab;
+}
+
+.cloud{
+    margin-top: 55px;
+    margin-left: 180px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  scale: 1;
+  height: 300px; 
+  width: 300px;
+  box-shadow: #FFFFFF 129px -45px 0 -5px, #FFFFFF -55px -85px, #FFFFFF -140px 80px, #FFFFFF -20px 146px 0 -10px, #FFFFFF 135px 145px 0 6px;
+  transition: 5s cubic-bezier(0.165, 0.84, 0.44, 1);  
+  transition-delay: 200ms;
+}
+
+ .cloud:hover{
+    transition-delay: 150ms;
+    transform: rotate(-3deg) translateY(-8px) translatex(-4px);
+    transition: 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+          }
+
+.cloud h2{
+    margin-left: 20%;
+}
+
+.next{
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-left: 50%;
+    margin-bottom: 60px;
+}
+
+@keyframes cloudyWobble {
     0% {
-        transform: scale(1);
-    } 40% {
-        transform: scale(0.8);
-    } 100% {
-        transform: scale(1);
+        transform: translate(0, 0) scale(1) rotate(0deg);
     }
-  }
+    20% {
+        transform: translate(-1.2em, -0.8em) scale(1.05) rotate(-2deg);
+    }
+    35% {
+        transform: translate(0.5em, -1.3em) scale(1) rotate(1deg);
+    }
+    50% {
+        transform: translate(-0.3em, 0.5em) scale(1.1) rotate(-1deg);
+    }
+    65% {
+        transform: translate(1em, -0.7em) scale(1.05) rotate(2deg);
+    }
+    80% {
+        transform: translate(-0.8em, 1em) scale(1) rotate(-1.5deg);
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
+
+
+
+
+
+
+
+
+/* 
+
+    :root {
+        --dumbbell-color: #555555;
+      }
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: sans-serif;
+        background: #222;
+        color: white;
+        text-align: center;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      /* Draggable dumbbell 
+      .dumbbell {
+        width: 200px;
+        height: 30px;
+        background: var(--dumbbell-color);
+        border-radius: 15px;
+        position: absolute;
+        top: 150px;
+        left: 150px;
+        cursor: grab;
+      }
+      .dumbbell::before,
+      .dumbbell::after {
+        content: "";
+        position: absolute;
+        top: -20px;
+        width: 50px;
+        height: 70px;
+        background: var(--dumbbell-color);
+        border-radius: 10px;
+      }
+      .dumbbell::before {
+        left: -60px;
+      }
+      .dumbbell::after {
+        right: -60px;
+      }
+      /* Kleurkiezer 
+      #colorControl {
+        margin-top: 50px;
+      }
+      #colorControl label {
+        margin-right: 10px;
+      }
+      /* DIMWL component 
+      #dimwl {
+        margin-top: 350px;
+      }
+      #dimwl input[type="number"] {
+        padding: 5px;
+        font-size: 1em;
+        margin: 10px;
+        width: 120px;
+      }
+      #dimwl button {
+        padding: 5px 10px;
+        font-size: 1em;
+        cursor: pointer;
+      }
+      #dimwl p {
+        margin-top: 15px;
+        font-weight: bold;
+      } */
