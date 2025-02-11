@@ -1,27 +1,114 @@
-function triggerStartShow() {
-    const getStartedTrigger = document.querySelector('.getStarted');
-    getStartedTrigger.classList.toggle('hidden');
-    console.log('triggerGetStarted');
+// nieuw toggle zetten op meerdere items in de nodelist
+const cloudItems = document.querySelectorAll('.multiple_clouds div');
+const mickeyCloudContainer = document.querySelector('.cloudContainer');
+const topRightStatus = false;
+console.log(topRightStatus)
+
+function startPositions() {
+    if (topRightStatus === false) {
+        mickeyCloudContainer.classList.add('topRight');
+        // start positie van de clouds
+        setTimeout(() => {
+        cloudItems.forEach(cloud => cloud.classList.toggle('start_position'));
+        console.log("clouds positioned + page loaded ");
+        topRightStatus = true;
+        console.log(topRightStatus);
+        }, 500);
+    } else {
+        console.log('cloud already positioned topright');
+    }
+   
 }
 
 
 let isDark = false;
 
+// couldItems gebruikt voor triggerDarkLight & moveClouds
+const mickeyCloud = document.querySelector('.cloud');
+
+
 function triggerDarkLight() {
     const lightModeTrigger = document.querySelector('#main_frame > a:has(svg)');
     lightModeTrigger.classList.toggle('dark');
     console.log('lightModeTrigger toggled');
-    
+
     const bg = document.querySelector('.background');
     bg.classList.toggle('dark');
     console.log('Dark mode toggled');
 
+    // const cloudItems = document.querySelector('.cloud');
+    mickeyCloud.classList.toggle('dark');
+    console.log('darkClouds Toggled');
+
+    const mickeyMouseMascotte = document.querySelector('.mickey');
+    mickeyMouseMascotte.classList.toggle('dark');
+    console.log('Mascotte Darkened Toggled');
+
+    const mickeyEar = document.querySelectorAll('.ear');
+    mickeyEar.classList.toggle('dark');
+    console.log('Ears Darkened');
 }
 
 
 
 
 
+// kijk welke cloud is geselecteerd
+function handleCloudClick(event) {
+  // single targett cloud
+  const clickedCloud = event.currentTarget;
+
+  // run de functie voor een geselecteerde cloud
+  runFunctionForClickedCloud(clickedCloud);
+ 
+  // run een functie voor de andere clouds
+  cloudItems.forEach(cloud => {
+    if (cloud !== clickedCloud) {
+      runFunctionForOtherClouds(cloud);
+    }
+  });
+}
+
+// functie met conditions voor de geselecteerde cloud
+function runFunctionForClickedCloud(cloud) {
+  console.log('Clicked cloud:', cloud);
+    // const cloudOpen = document.querySelector('dialog');
+    cloud.classList.toggle('open');
+//     mickeyCloudContainer.classList.toggle('topRight');
+}
+
+// functie met conditions voor de andere clouds
+function runFunctionForOtherClouds(cloud) {
+  console.log('Other cloud:', cloud);
+  cloud.classList.toggle('move_away');
+  // 
+}
+
+// // Add event listeners to each cloud
+// cloudItems.forEach(cloud => {
+//   cloud.addEventListener('click', handleCloudClick);
+// });
+
+
+
+
+
+
+
+
+// const cloudOpen = document.querySelector('dialog');
+// const cloudTrigger = document.querySelector('dialog + button');
+// const cloudClose = document.querySelector('dialog button');
+
+// // 'Show the dialog' button opens the dialog modally
+// showButton.addEventListener('click', () => {
+//   dialog.showModal();
+// });
+
+// // 'Close' button closes the dialog
+// closeButton.addEventListener('click', () => {
+//   dialog.close();
+// });
 
 
 
@@ -34,7 +121,88 @@ function triggerDarkLight() {
 
 
 
+// NASA Deel
 
+// async function getData() {
+//     const url = 'https://api.nasa.gov/insight_weather/?api_key=Z7W2br7uX8avYcqhlclVdhS19u7HsKJa5fdg0PL4&feedtype=json&ver=1.0';
+//     try {
+//       const response = await fetch(url);
+//       if (!response.ok) {
+//         throw new Error(`Response status: ${response.status}`);
+//       }
+  
+//       const json = await response.json();
+//       console.log(json);
+//     } catch (error) {
+//       console.error(error.message);
+//     }
+//   }
+
+
+
+  async function getData() {
+    const url = 'https://api.nasa.gov/insight_weather/?api_key=Z7W2br7uX8avYcqhlclVdhS19u7HsKJa5fdg0PL4&feedtype=json&ver=1.0';
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+      console.log(json);
+      displayTemperatureData(json);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  
+  function displayTemperatureData(data) {
+    const section = document.createElement('section');
+    section.id = 'temperature_data';
+    section.style.padding = '20px';
+    section.style.backgroundColor = '#f0f0f0';
+  
+    // SOL zijn de solar days op Mars
+    const solKeys = data.sol_keys;
+    solKeys.forEach(sol => {
+    //   const article = document.createElement('article');
+    //   article.style.marginBottom = '20px';
+    //   article.style.padding = '10px';
+    //   article.style.border = '1px solid #ccc';
+    //   article.style.borderRadius = '5px';
+    //   article.style.backgroundColor = '#fff';
+  
+    //   const solTitle = document.createElement('h2');
+      solTitle.textContent = `Sol ${sol}`;
+    //   article.appendChild(solTitle);
+  
+      const tempData = data[sol].AT;
+      if (tempData) {
+        const avgTemp = document.createElement('p');
+        avgTemp.textContent = `Average Temperature: ${tempData.av} °C`;
+        article.appendChild(avgTemp);
+  
+        const minTemp = document.createElement('p');
+        minTemp.textContent = `Min Temperature: ${tempData.mn} °C`;
+        article.appendChild(minTemp);
+  
+        const maxTemp = document.createElement('p');
+        maxTemp.textContent = `Max Temperature: ${tempData.mx} °C`;
+        article.appendChild(maxTemp);
+      } else {
+        const noData = document.createElement('p');
+        noData.textContent = 'No temperature data available.';
+        article.appendChild(noData);
+      }
+  
+      section.appendChild(article);
+    });
+  
+    document.body.appendChild(section);
+  }
+  
+  // Call getData to fetch and display the data
+  getData();
 
 
 
@@ -169,6 +337,3 @@ function triggerDarkLight() {
     //     prResult.textContent = "Voer een geldig gewicht in!";
     //   }
     // });
-
-
-    
