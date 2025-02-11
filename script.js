@@ -1,3 +1,58 @@
+function triggerStartShow() {
+    const getStartedTrigger = document.querySelector('.getStarted');
+    getStartedTrigger.classList.toggle('hidden');
+    console.log('triggerGetStarted');
+}
+
+
+let isDark = false;
+
+function triggerDarkLight() {
+    const lightModeTrigger = document.querySelector('#main_frame > a:has(svg)');
+    lightModeTrigger.classList.toggle('dark');
+    console.log('lightModeTrigger toggled');
+    
+    const bg = document.querySelector('.background');
+    bg.classList.toggle('dark');
+    console.log('Dark mode toggled');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function dragEvent(event) {
 //     event.dataTransfer.setData("draggableContainer", event.target.id);
 //     event.preventDefault()
@@ -60,42 +115,42 @@
         
 
     //  Draggable functie voor de dumbbell
-    const dumbbell = document.querySelector('.dumbbell');
-    let isDragging = false;
-    let offsetX, offsetY;
+    // const dumbbell = document.querySelector('.dumbbell');
+    // let isDragging = false;
+    // let offsetX, offsetY;
 
-    // mousedown - begint te slepen > dragging wordt true voor volgende (mousemove listener) 
-    // listener weet dat hij verplaatsen kan worden
-    // clientx & y gaan gebruiken vor de muispositie
-    // 
-    dumbbell.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - dumbbell.offsetLeft;
-      offsetY = e.clientY - dumbbell.offsetTop;
-      dumbbell.style.cursor = "grabbing";
-    });
+    // // mousedown - begint te slepen > dragging wordt true voor volgende (mousemove listener) 
+    // // listener weet dat hij verplaatsen kan worden
+    // // clientx & y gaan gebruiken vor de muispositie
+    // // 
+    // dumbbell.addEventListener('mousedown', (e) => {
+    //   isDragging = true;
+    //   offsetX = e.clientX - dumbbell.offsetLeft;
+    //   offsetY = e.clientY - dumbbell.offsetTop;
+    //   dumbbell.style.cursor = "grabbing";
+    // });
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        dumbbell.style.left = (e.clientX - offsetX) + 'px';
-        dumbbell.style.top = (e.clientY - offsetY) + 'px';
-      }
-    });
+    // document.addEventListener('mousemove', (e) => {
+    //   if (isDragging) {
+    //     dumbbell.style.left = (e.clientX - offsetX) + 'px';
+    //     dumbbell.style.top = (e.clientY - offsetY) + 'px';
+    //   }
+    // });
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      dumbbell.style.cursor = "grab";
-    });
+    // document.addEventListener('mouseup', () => {
+    //   isDragging = false;
+    //   dumbbell.style.cursor = "grab";
+    // });
 
 
 
 
     // --- input pakken van colorpicker functie - inspo van les Kilian 'stop using js'   ---
-    const colorPicker = document.getElementById('colorPicker');
-    colorPicker.addEventListener('input', (e) => {
-      // dumbbell kleur aanpassen met style setproperty en de value van de input (variable kleur maken in css)
-      document.documentElement.style.setProperty('--dumbbell-color', e.target.value);
-    });
+    // const colorPicker = document.getElementById('colorPicker');
+    // colorPicker.addEventListener('input', (e) => {
+    //   // dumbbell kleur aanpassen met style setproperty en de value van de input (variable kleur maken in css)
+    //   document.documentElement.style.setProperty('--dumbbell-color', e.target.value);
+    // });
 
 
 
@@ -104,13 +159,16 @@
 
 
     // --- DIMWL interactive component: PR invoer ---
-    const prBtn = document.getElementById('prBtn');
-    prBtn.addEventListener('click', () => {
-      const pr = document.getElementById('prInput').value;
-      const prResult = document.getElementById('prResult');
-      if (pr && pr > 0) {
-        prResult.textContent = "Je hebt " + pr + " kg gelift! Goed bezig!";
-      } else {
-        prResult.textContent = "Voer een geldig gewicht in!";
-      }
-    });
+    // const prBtn = document.getElementById('prBtn');
+    // prBtn.addEventListener('click', () => {
+    //   const pr = document.getElementById('prInput').value;
+    //   const prResult = document.getElementById('prResult');
+    //   if (pr && pr > 0) {
+    //     prResult.textContent = "Je hebt " + pr + " kg gelift! Goed bezig!";
+    //   } else {
+    //     prResult.textContent = "Voer een geldig gewicht in!";
+    //   }
+    // });
+
+
+    
