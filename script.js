@@ -4,6 +4,7 @@ const mickeyCloudContainer = document.querySelector('.cloudContainer');
 let topRightStatus = false;
 console.log(topRightStatus)
 const gameArticle = document.createElement('article');
+let tempData = 0;
 
 
 function startPositions() {
@@ -146,7 +147,7 @@ function runFunctionForClickedCloud(cloud) {
                 `
             <h2>Flinke kou op Mars</h2>
             <h3>We kijken naar de data op Sol 999</h3>
-            <p>Maximale Temp:  °C</p>
+            <p>Maximale Temp: ${tempData}°C</p>
             `;
         }
         // DEZE HTML
@@ -542,17 +543,26 @@ async function fetchNasaData() {
     }
 }
 
+
+
+setInterval(() => {
+    console.log(tempData)
+}, 1000)
+
 // Function to insert NASA data into HTML
 function insertNasaDataIntoHtml(data) {
     const solKeys = data.sol_keys;
-    console.log("DATA", data["675"].AT.av);
+    // console.log("DATA", );
+    // const tempData = data["675"].AT;
     // in de documentatie van NASA stond dat ik 
     // een string in de array moest zetten om de data te krijgen
 
     // Get the latest sol key
     // 1 eraf halen geef de index het laatste element (door natuurlijk de array die begint op 0).
     /// solKeys[solKeys.length - 1] geeft de laatste sol key
-    const latestSol = solKeys[solKeys.length - 1];
+    // const latestSol = solKeys[solKeys.length - 1];
+
+    return tempData = data["675"].AT.av
     // const tempData = data[latestSol].AT;
 
     // const planetH3 = document.querySelector('#main_frame > article');
