@@ -137,32 +137,66 @@ function runFunctionForClickedCloud(cloud) {
     //   console.log('Clicked cloud:', cloud);
     // const cloudOpen = document.querySelector('dialog');
 
+    // styling waardes meegeven zodat er een fade in kan worden gedaan
+    // gameArticle.style.opacity = '0';
+    // gameArticle.style.transform = 'translateY(20px)';
+    // gameArticle.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+
+
+
     currentState = cloud.getAttribute('data-state');
     console.log('currentState:', currentState);
 
     if (currentState === "planet") {
         amountClicksCloud++;
         if (gameArticle) {
-            gameArticle.innerHTML =
-                `
-            <h2>Flinke kou op Mars</h2>
-            <h3>We kijken naar de data op Sol 999</h3>
-            <p>Maximale Temp: ${tempData}°C</p>
-            `;
+
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML after fade out
+                gameArticle.innerHTML =
+                    `
+                <h2>Flinke kou op planeet Mars</h2>
+                <h3>We kijken naar de data op Sol 657</h3>
+                <p>Maximale Temp: ${tempData}°C</p>
+                <style>
+                    .round-image {
+                        width: 200px; /* Adjust the size as needed */
+                        height: 200px; /* Adjust the size as needed */
+                        clip-path: circle(35%);
+                        object-fit: cover;
+                    }
+                </style>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Spinning_Mars.gif" alt="gif van planeet Mars" class="round-image">
+                `;
+
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250); // Adjust the timeout duration to match the transition duration
+
         }
         // DEZE HTML
         if (amountClicksCloud >= 2) {
             currentState = "idle";
             console.log(currentState);
             amountClicksCloud = 0;
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML after fade out
+                gameArticle.innerHTML = `
+    <h2>Kies je onderwerp</h2>
+    <h3>Klik op een wolk voor meer info</h3>
+  `;
 
-            if (gameArticle) {
-                gameArticle.innerHTML =
-                    `
-            <h2>Kies je onderwerp</h2>
-            <h3>Klik op een wolk voor meer info</h3>
-            `;
-            }
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250); // Adjust the timeout duration to match the transition duration
         }
     } else if (currentState === "money") {
         amountClicksCloud++;
