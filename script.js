@@ -1,7 +1,7 @@
 // nieuw toggle zetten op meerdere items in de nodelist
 const cloudItems = document.querySelectorAll('.multiple_clouds div');
 const mickeyCloudContainer = document.querySelector('.cloudContainer');
-const topRightStatus = false;
+let topRightStatus = false;
 console.log(topRightStatus)
 
 function startPositions() {
@@ -13,7 +13,29 @@ function startPositions() {
         console.log("clouds positioned + page loaded ");
         topRightStatus = true;
         console.log(topRightStatus);
-        }, 500);
+
+        // kiest onderwerp tekst
+        const article = document.createElement('article');
+        article.style.opacity = '0';
+        article.style.transform = 'translateY(20px)';
+        article.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+        document.querySelector('#main_frame').appendChild(article);
+        
+        const startTopicH2 = document.createElement('h2');
+        startTopicH2.textContent = 'Kies een onderwerp';
+        const startTopicH3 = document.createElement('h3');
+        startTopicH3.textContent = 'Klik op een wolk voor meer info';
+        
+        article.appendChild(startTopicH2);
+        article.appendChild(startTopicH3);
+
+        // Trigger the transition
+        setTimeout(() => {
+            article.style.opacity = '1';
+            article.style.transform = 'translateY(0)';
+        }, 750);
+    
+    }, 500);
     } else {
         console.log('cloud already positioned topright');
     }
@@ -243,7 +265,7 @@ function runFunctionForOtherClouds(cloud) {
 // }
     // let nextTrigger = document.getElementsByClassName('next');
 
-    // myFunction(){
+    // testFunction(){
     //     cloud.classList.toggle('active');
     // }
 

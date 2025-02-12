@@ -187,6 +187,31 @@ section:first-of-type article{
 }
 
 /* ----------- ------- ------------ */
+/* ---------- Info Blocks ----------- */
+/* ----------- ------- ------------ */
+
+#main_frame > article {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  z-index: 999;
+  width: 90vw;
+}
+
+#main_frame > article h2 {
+  color: white;
+  font-family: "Mickey";
+  font-size: 3.5rem;
+}
+
+#main_frame > article h3 {
+  color: white;
+  font-family: "Minnie";
+  font-size: 1.5rem;
+}
+
+/* ----------- ------- ------------ */
 
 .cloudContainer h2 {
   font-family: "Mickey";
