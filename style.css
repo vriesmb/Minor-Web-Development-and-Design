@@ -217,9 +217,16 @@ h4 {
 }
 
 #main_frame > article h3 {
+  padding-top: 1em;
   color: white;
   font-family: "Minnie";
   font-size: 1.5rem;
+}
+
+#main_frame > article p {
+  color: white;
+  font-family: "Minnie";
+  font-size: 2rem;
 }
 
 /* ----------- ------- ------------ */

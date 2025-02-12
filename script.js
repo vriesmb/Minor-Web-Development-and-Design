@@ -220,6 +220,57 @@ function runFunctionForClickedCloud(cloud) {
 
 }
 
+
+
+// functie maken bij click op mickey
+// check wat de status is van de clouds met currentState
+// en run de functie voor de geselecteerde cloud
+// speel audio die mickey zegt staat in mapje audio en file heet mars_mickey.wav
+let isPlaying = false;
+
+const mickeySpeaker = document.querySelector('.cloud');
+const audio = new Audio('./audio/mars_mickey.wav');
+
+mickeySpeaker.addEventListener('click', () => {
+    if (currentState === "planet") {
+        console.log(isPlaying)
+        if (isPlaying === false) {
+            isPlaying = true;
+            audio.play();
+        } else {
+            return
+        }
+
+        setTimeout(() => {
+            isPlaying = false;
+            console.log(isPlaying)
+        }, 10000)
+
+        startPositions();
+
+    }
+    // else if (currentState === "money") {
+    //     const audio = new Audio('./audio/mars_mickey.wav');
+    //     audio.play();
+    //     console.log('Mickey verteld over money');
+    //     startPositions();
+    // } else if (currentState === "trading") {
+    //     const audio = new Audio('./audio/mars_mickey.wav');
+    //     audio.play();
+    //     console.log('Mickey verteld over trading');
+    //     startPositions();
+    // } 
+    else {
+        console.log('Mickey - kies een onderwerp');
+    }
+})
+
+
+
+
+
+
+
 // if (gameArticle) {
 //     gameArticle.innerHTML =
 //     `
