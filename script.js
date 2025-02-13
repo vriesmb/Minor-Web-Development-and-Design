@@ -1,18 +1,25 @@
-// nieuw toggle zetten op meerdere items in de nodelist
+// Auteur: Mike de Vries
+
+// ----------------- //
+// DOM ELEMENTS & VARIABLES buiten functies
 const cloudItems = document.querySelectorAll('.multiple_clouds div');
 const mickeyCloudContainer = document.querySelector('.cloudContainer');
 let topRightStatus = false;
 console.log(topRightStatus)
 const gameArticle = document.createElement('article');
 let tempData = 0;
-
+// ----------------- //
 
 function startPositions() {
     if (topRightStatus === false) {
         mickeyCloudContainer.classList.add('topRight');
         // start positie van de clouds
         setTimeout(() => {
+            // hier zet ik de clouds in de gewenste start positie
             cloudItems.forEach(cloud => cloud.classList.toggle('start_position'));
+
+            // hier zet ik de data-state van de clouds
+            // zodat ik die later kan gebruiken in de vergelijking/if-else area
             cloudItems[0].setAttribute('data-state', 'money');
             cloudItems[1].setAttribute('data-state', 'planet');
             cloudItems[2].setAttribute('data-state', 'trading');
@@ -20,15 +27,13 @@ function startPositions() {
             topRightStatus = true;
             console.log(topRightStatus);
 
-            // kiest onderwerp tekst aanmaken en toevoegen aan DOM
-            // gameArticle.classList.add('gameInfoArticle');
-
             //styling waardes meegeven zodat er een fade in kan worden gedaan
             gameArticle.style.opacity = '0';
             gameArticle.style.transform = 'translateY(20px)';
             gameArticle.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
             document.querySelector('#main_frame').appendChild(gameArticle);
 
+            // html toevoegen aan de gameArticle
             const startTopicH2 = document.createElement('h2');
             startTopicH2.textContent = 'Kies een onderwerp';
             const startTopicH3 = document.createElement('h3');
@@ -45,35 +50,10 @@ function startPositions() {
 
         }, 500);
     } else {
-        console.log('cloud already positioned topright');
+        console.log('cloud al positioned in topright');
     }
 
 }
-
-
-// gameArticle.addEventListener("click", () => {
-
-//     setTimeout(() => {
-//     }, 1000)
-
-//     if (currentState === "planet") {
-//       // DEZE HTML
-
-//     } else if (currentState === "money") {
-
-//       // DEZE HTML
-
-//     } else if (currentState === "trading") {
-
-//       // DEZE HTML
-
-//     } else if (currentState === "idle") {
-
-//       // DEFAULT TEXT
-
-//     }
-
-// })
 
 // standaard waarde 'light' zodat dark getriggerd kan worden
 // let omdat de status moet veranderen zodat hij teruggeschakeld kan worden
@@ -93,6 +73,7 @@ function triggerDarkLight() {
 
     // const cloudItems = document.querySelector('.cloud');
     mickeyCloud.classList.toggle('dark');
+    cloudItems.forEach(cloud => cloud.classList.toggle('dark'));
     console.log('darkClouds Toggled');
 
     const mickeyMouseMascotte = document.querySelector('.mickey');
@@ -100,7 +81,7 @@ function triggerDarkLight() {
     console.log('Mascotte Darkened Toggled');
 
     const mickeyEar = document.querySelectorAll('.ear');
-    mickeyEar.classList.toggle('dark');
+    mickeyEar.forEach(ear => ear.classList.toggle('dark'));
     console.log('Ears Darkened');
 }
 
@@ -125,26 +106,31 @@ function handleCloudClick(event) {
 
 
 // NASA Data - AT is de Atmospeheric Temperature
+// en de sols zijn de solar days op Mars
+// de tijd duurt daar iets langer dan 24 uur om mars om zijn as te draaien
+// vandaar de andere benaming van een dag
 // Define data and sol variables
-
+// oude temp data van de API maar die werkt uit zichzelf niet
+// had in de documentatie van NASA gelezen dat ik een string 
+// in de array moest zetten dus hardcoded gedaan voor 
+// zekerheid in de insertNasaDataIntoHtml functie
 // const tempData = data[sol].AT;
 
 let currentState = "idle";
 let amountClicksCloud = 0;
-// let currentState = "idle";  
+
 // functie met conditions voor de geselecteerde cloud
 function runFunctionForClickedCloud(cloud) {
     //   console.log('Clicked cloud:', cloud);
     // const cloudOpen = document.querySelector('dialog');
 
-    // styling waardes meegeven zodat er een fade in kan worden gedaan
-    // gameArticle.style.opacity = '0';
-    // gameArticle.style.transform = 'translateY(20px)';
-    // gameArticle.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-
-
-
+    // BRON: getAttribute geleerd van Jamie
     currentState = cloud.getAttribute('data-state');
+    // hierboven pak ik de currentstate van een/de cloud maar 
+    // zet hem om in een string zodat ik in een if else kan 
+    // vergelijken/condities kan toevoegen
+
+    // even loggen om de state te checken voodat we de if&else-es in gaan
     console.log('currentState:', currentState);
 
     if (currentState === "planet") {
@@ -203,48 +189,81 @@ function runFunctionForClickedCloud(cloud) {
         // DEZE HTML
 
         if (gameArticle) {
-            gameArticle.innerHTML =
-                `
-        <h2>Money</h2>
-        <h3>Gaat over ondernemingen</h3>
-        `;
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML after fade out
+                gameArticle.innerHTML =
+                    `
+                <h2>Money</h2>
+                <h3>k ben een gedreven ondernemer met een passie voor fitness, media en technologie. Met New Motion help ik mensen de juiste supplementen en trainingsadvies te vinden, terwijl ik met M4U Creatives toffe video’s en designs maak voor bedrijven.</h3>
+                `;
+
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250); // Adjust the timeout duration to match the transition duration
         }
 
         if (amountClicksCloud >= 2) {
             currentState = "idle";
             console.log(currentState);
             amountClicksCloud = 0;
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML after fade out
+                gameArticle.innerHTML = `
+<h2>Kies je onderwerp</h2>
+<h3>Klik op een wolk voor meer info</h3>
+`;
 
-            if (gameArticle) {
-                gameArticle.innerHTML =
-                    `
-            <h2>Kies je onderwerp</h2>
-            <h3>Klik op een wolk voor meer info</h3>
-            `;
-            }
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250); // Adjust the timeout duration to match the transition duration
         }
     } else if (currentState === "trading") {
         amountClicksCloud++;
         // DEZE HTML
         if (gameArticle) {
-            gameArticle.innerHTML =
-                `
-        <h2>Trading</h2>
-        <h3>Crypto koersen</h3>
-        `;
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML after fade out
+                gameArticle.innerHTML =
+                    `
+                <h2>Trading</h2>
+                <h3>Ik heb ervaring met trading en sportweddenschappen. Ik handel altijd met een slimme, gestructureerde aanpak. Door data en strategie te combineren, maak ik weloverwogen keuzes en probeer ik elke kans zo goed mogelijk te benutten. Anderen zouden hun playstation opstarten. Voor mij is dit mijn fun-momentje op de dag.</h3>
+                `;
+
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250); // Adjust the timeout duration to match the transition duration
         }
 
         if (amountClicksCloud >= 2) {
             currentState = "idle";
             console.log(currentState);
             amountClicksCloud = 0;
-            if (gameArticle) {
-                gameArticle.innerHTML =
-                    `
-            <h2>Kies je onderwerp</h2>
+            // Smooth fade out
+            gameArticle.style.opacity = '0';
+            gameArticle.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Update inner HTML na de fade out
+                gameArticle.innerHTML = `
+             <h2>Kies je onderwerp</h2>
             <h3>Klik op een wolk voor meer info</h3>
             `;
-            }
+
+                // Smooth fade in
+                gameArticle.style.opacity = '1';
+                gameArticle.style.transform = 'translateY(0)';
+            }, 1250);
         }
     } else {
         console.log('DIT WERKT');
@@ -263,14 +282,17 @@ function runFunctionForClickedCloud(cloud) {
 let isPlaying = false;
 
 const mickeySpeaker = document.querySelector('.cloud');
-const audio = new Audio('./audio/mars_mickey.wav');
+const audioMars = new Audio('./audio/mars_mickey.wav');
+const audioInstruction = new Audio('./audio/mickey_instruction.wav');
+const audioMoney = new Audio('./audio/money_mickey.wav');
+const audioTrading = new Audio('./audio/trading_mickey.wav');
 
 mickeySpeaker.addEventListener('click', () => {
     if (currentState === "planet") {
         console.log(isPlaying)
         if (isPlaying === false) {
             isPlaying = true;
-            audio.play();
+            audioMars.play();
         } else {
             return
         }
@@ -282,207 +304,119 @@ mickeySpeaker.addEventListener('click', () => {
 
         startPositions();
 
-    }
-    // else if (currentState === "money") {
-    //     const audio = new Audio('./audio/mars_mickey.wav');
-    //     audio.play();
-    //     console.log('Mickey verteld over money');
-    //     startPositions();
-    // } else if (currentState === "trading") {
-    //     const audio = new Audio('./audio/mars_mickey.wav');
-    //     audio.play();
-    //     console.log('Mickey verteld over trading');
-    //     startPositions();
-    // } 
-    else {
+    } else if (currentState === "money") {
+        console.log(isPlaying)
+        if (isPlaying === false) {
+            isPlaying = true;
+            audioMoney.play();
+        } else {
+            return
+        }
+
+        setTimeout(() => {
+            isPlaying = false;
+            console.log(isPlaying)
+        }, 10000)
+    } else if (currentState === "trading") {
+        console.log(isPlaying)
+        if (isPlaying === false) {
+            isPlaying = true;
+            audioTrading.play();
+        } else {
+            return
+        }
+
+        setTimeout(() => {
+            isPlaying = false;
+            console.log(isPlaying)
+        }, 1000)
+    } else {
+        console.log(isPlaying)
+        if (isPlaying === false) {
+            isPlaying = true;
+            audioInstruction.play();
+        }
+
+        setTimeout(() => {
+            isPlaying = false;
+            console.log(isPlaying)
+        }, 4000)
         console.log('Mickey - kies een onderwerp');
     }
 })
 
 
-
-
-
-
-
-// if (gameArticle) {
-//     gameArticle.innerHTML =
-//     `
-//     <h2>Kies je onderwerp</h2>
-//     <h3>Klik op een wolk voor meer info</h3>
-//     `;
-// }
-
-
-// cloud.classList.toggle('open');
-
-//     mickeyCloudContainer.classList.toggle('topRight');
-// contentCloudHandler();
-
-// }
-
-
-// function contentCloudHandler() {
-//     if (currentState === "planet") {
-//         // DEZE HTML
-
-//       } else if (currentState === "money") {
-//         // DEZE HTML
-
-//       } else if (currentState === "trading") {
-//         // DEZE HTML
-
-//       } else if (currentState === "idle") {
-//         // DEFAULT TEXT
-
-//       }
-//     }
-
 // functie met conditions voor de andere clouds
 function runFunctionForOtherClouds(cloud) {
     console.log('Other cloud:', cloud);
     cloud.classList.toggle('move_away');
-    // 
 }
 
-// // Add event listeners to each cloud
-// cloudItems.forEach(cloud => {
-//   cloud.addEventListener('click', handleCloudClick);
-// });
+// BRON: Jamie heeft samen met me problemen weten op te lossen
+
+// fetch en NASA data laten zien in html
+async function fetchNasaData() {
+    // veilige methode voor inladen api key
+    // want als je het in de url zet is het zichtbaar voor iedereen
+    const apiKey = 'Z7W2br7uX8avYcqhlclVdhS19u7HsKJa5fdg0PL4';
+    const url = `https://api.nasa.gov/insight_weather/?api_key=${apiKey}&feedtype=json&ver=1.0`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // insert data in de html
+        insertNasaDataIntoHtml(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+// checker of de tempData wordt geupdate (had problemen met de data re-writen)
+setInterval(() => {
+    console.log(tempData)
+}, 1000)
+
+// functie om de data in de html te zetten
+function insertNasaDataIntoHtml(data) {
+    // const solKeys = data.sol_keys;
+
+    // in de documentatie van NASA stond dat ik 
+    // een string in de array moest zetten om de data te krijgen
+
+    // Get the latest sol key
+    // 1 eraf halen geef de index het laatste element (door natuurlijk de array die begint op 0).
+    /// solKeys[solKeys.length - 1] geeft de laatste sol key
+    // const latestSol = solKeys[solKeys.length - 1];
+    // werkte niet, dus ik heb het hardcoded gedaan
+
+    // pakt de laatste temp data van de laatste sol key
+    return tempData = data["675"].AT.av
+    // rewrite hier de data in de html
+}
+
+// fetch en display NASA data
+fetchNasaData();
 
 
-
-
-
-
-
-
-// const cloudOpen = document.querySelector('dialog');
-// const cloudTrigger = document.querySelector('dialog + button');
-// const cloudClose = document.querySelector('dialog button');
-
-// // 'Show the dialog' button opens the dialog modally
-// showButton.addEventListener('click', () => {
-//   dialog.showModal();
-// });
-
-// // 'Close' button closes the dialog
-// closeButton.addEventListener('click', () => {
-//   dialog.close();
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-// NASA Deel
-
-// async function getData() {
-//     const url = 'https://api.nasa.gov/insight_weather/?api_key=Z7W2br7uX8avYcqhlclVdhS19u7HsKJa5fdg0PL4&feedtype=json&ver=1.0';
-//     try {
-//       const response = await fetch(url);
-//       if (!response.ok) {
-//         throw new Error(`Response status: ${response.status}`);
-//       }
-
-//       const json = await response.json();
-//       console.log(json);
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-
-
-
-//   async function getData() {
-//     const apiKey = process.env.NASA_API_KEY;
-//     const url = `https://api.nasa.gov/insight_weather/?api_key=${apiKey}&feedtype=json&ver=1.0`;
-//     try {
-//       const response = await fetch(url);
-//       if (!response.ok) {
-//         throw new Error(`Response status: ${response.status}`);
-//       }
-
-//       const json = await response.json();
-//       console.log(json);
-//       displayTemperatureData(json);
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-
-//   getData();
-
-//   function displayTemperatureData(data) {
-//     const section = document.createElement('section');
-//     section.id = 'temperature_data';
-//     section.style.padding = '20px';
-//     section.style.backgroundColor = '#f0f0f0';
-
-//     // SOL zijn de solar days op Mars
-//     const solKeys = data.sol_keys;
-//     solKeys.forEach(sol => {
-//     //   const article = document.createElement('article');
-//     //   article.style.marginBottom = '20px';
-//     //   article.style.padding = '10px';
-//     //   article.style.border = '1px solid #ccc';
-//     //   article.style.borderRadius = '5px';
-//     //   article.style.backgroundColor = '#fff';
-
-//     //   const solTitle = document.createElement('h2');
-//       solTitle.textContent = `Sol ${sol}`;
-//     //   article.appendChild(solTitle);
-
-//       const tempData = data[sol].AT;
-//       if (tempData) {
-//         const avgTemp = document.createElement('p');
-//         avgTemp.textContent = `Average Temperature: ${tempData.av} °C`;
-//         article.appendChild(avgTemp);
-
-//         const minTemp = document.createElement('p');
-//         minTemp.textContent = `Min Temperature: ${tempData.mn} °C`;
-//         article.appendChild(minTemp);
-
-//         const maxTemp = document.createElement('p');
-//         maxTemp.textContent = `Max Temperature: ${tempData.mx} °C`;
-//         article.appendChild(maxTemp);
-//       } else {
-//         const noData = document.createElement('p');
-//         noData.textContent = 'No temperature data available.';
-//         article.appendChild(noData);
-//       }
-
-//       section.appendChild(article);
-//     });
-
-//     document.body.appendChild(section);
-//   }
-
-// Call getData to fetch and display the data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// ------------------------------------ //
+// // ----------BACKUP----------------- //
+// archive van code van oudere/eerder concept
+// ------------------------------------ //
+// ------------------------------------ //
 
 
 // function dragEvent(event) {
@@ -499,8 +433,6 @@ function runFunctionForOtherClouds(cloud) {
 
 // function dropAllowed(event){
 // event.preventDefault();
-
-
 
 
 
@@ -523,9 +455,6 @@ function runFunctionForOtherClouds(cloud) {
 // }
 
 // window.onscroll = scrollRotate;
-
-
-
 
 // info en inspo sources van de *drabbable feature*
 
@@ -574,94 +503,9 @@ function runFunctionForOtherClouds(cloud) {
 //   dumbbell.style.cursor = "grab";
 // });
 
-
-
-
 // --- input pakken van colorpicker functie - inspo van les Kilian 'stop using js'   ---
 // const colorPicker = document.getElementById('colorPicker');
 // colorPicker.addEventListener('input', (e) => {
 //   // dumbbell kleur aanpassen met style setproperty en de value van de input (variable kleur maken in css)
 //   document.documentElement.style.setProperty('--dumbbell-color', e.target.value);
 // });
-
-
-
-
-
-
-
-// --- DIMWL interactive component: PR invoer ---
-// const prBtn = document.getElementById('prBtn');
-// prBtn.addEventListener('click', () => {
-//   const pr = document.getElementById('prInput').value;
-//   const prResult = document.getElementById('prResult');
-//   if (pr && pr > 0) {
-//     prResult.textContent = "Je hebt " + pr + " kg gelift! Goed bezig!";
-//   } else {
-//     prResult.textContent = "Voer een geldig gewicht in!";
-//   }
-// });
-
-
-
-
-// fetch en NASA data laten zien in html
-async function fetchNasaData() {
-    // veilige methode voor inladen api key
-    // want als je het in de url zet is het zichtbaar voor iedereen
-    const apiKey = 'Z7W2br7uX8avYcqhlclVdhS19u7HsKJa5fdg0PL4';
-    const url = `https://api.nasa.gov/insight_weather/?api_key=${apiKey}&feedtype=json&ver=1.0`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        // insert data in de html
-        insertNasaDataIntoHtml(data);
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-
-
-setInterval(() => {
-    console.log(tempData)
-}, 1000)
-
-// Function to insert NASA data into HTML
-function insertNasaDataIntoHtml(data) {
-    const solKeys = data.sol_keys;
-    // console.log("DATA", );
-    // const tempData = data["675"].AT;
-    // in de documentatie van NASA stond dat ik 
-    // een string in de array moest zetten om de data te krijgen
-
-    // Get the latest sol key
-    // 1 eraf halen geef de index het laatste element (door natuurlijk de array die begint op 0).
-    /// solKeys[solKeys.length - 1] geeft de laatste sol key
-    // const latestSol = solKeys[solKeys.length - 1];
-
-    return tempData = data["675"].AT.av
-    // const tempData = data[latestSol].AT;
-
-    // const planetH3 = document.querySelector('#main_frame > article');
-
-    // if (tempData) {
-    //     const nasaDataH4 = document.createElement('h4');
-    //     nasaDataH4.textContent = `Maximale Temp: ${tempData.mx} °C`;
-    //     planetH3.appendChild(h4);
-    // } else {
-    //     const planetH4 = document.createElement('h4');
-    //     planetH4.textContent = 'No temperature data available.';
-    //     planetH4.appendChild(h4);
-    // }
-}
-
-// Call the function to fetch and display NASA data
-fetchNasaData();

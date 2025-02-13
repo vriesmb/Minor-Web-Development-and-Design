@@ -4,11 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Personal Website</title>
+    <title>Persoonlijke Website Mike</title>
   </head>
   <body>
+    <!-- Door de vrije vorm heb ik geen H1 element. Niet nodig voor mijn design.
+  Als ik meer tijd had had ik elementen voor sr-only toegevoegd.
+  Zodat de DOM er netjes uit ziet en de website toegankelijker is. -->
+    <h1 class="sr-only">Mike de Vries Persoonlijke website</h1>
+    <!-- section met id main_frame want gebruik graag herkenbare 
+    naam in JavaScript (ook bij ophalen en hernoemen van een DOM 
+    element in JS, zie graag voor zekerheid)  -->
     <section id="main_frame">
-      <!-- <h4>Max Temperature: ${maxTemp} °C</h4> -->
+      <!-- dark/light toggletje -->
+      <!-- met een href naar een javascript functie die de 
+        dark/light mode toggled zodat ik vanuit de html makkelijk 
+        onderscheid kan maken tussen de <a>'s 
+          doordat ik 'href:javascript' zie' -->
       <a href="javascript:triggerDarkLight()">
         <svg
           id="uuid-f0a64028-a567-4292-8056-7e521c252d9b"
@@ -25,6 +36,7 @@
         </svg>
       </a>
 
+      <!-- cloudContainer met een artikel voor mijn naam -->
       <div class="cloudContainer">
         <article>
           <h2>Mikey Frost</h2>
@@ -37,9 +49,11 @@
               <div class="ear right-ear"></div>
             </div>
           </div>
+          <!-- button -->
           <a href="javascript:startPositions()">
             Get Started
             <div>
+              <!-- arrow svg van in de button -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 256 256"
@@ -61,9 +75,9 @@
               </svg>
             </div>
           </a>
+          <!-- einde van button -->
         </article>
       </div>
-
       <div class="multiple_clouds">
         <div onclick="handleCloudClick(event)">
           <svg
@@ -325,70 +339,7 @@
         </div>
       </div>
     </section>
-
     <div class="background"></div>
-    <!-- <div id="css_canvas">
-        <div class="ear_left">
-        </div>
-        <div class="ear_right">
-        </div>
-        <div class="circle_base">
-        </div>
-    </div> -->
-
-    <!-- <section>
-        <h2>Persoonlijke website</h2>
-        <article>
-            
-        </article>
-        <article>
-            
-        </article>
-
-    </section> -->
-
-    <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/::before -->
-
-    <!-- <section>
-        <article>
-            <img src="https://i0.wp.com/newmotion.pro/wp-content/uploads/2024/11/Screenshot-2024-11-04-at-21.02.14.png?resize=300%2C300&ssl=1" alt="Mike KNKF wedstrijd powerlifting">
-        </article>
-     </section> -->
-
-    <!-- <div class="barbell"></div> -->
-
-    <!-- <button class="next">Trigger</button> -->
-
-    <!-- <div draggable="true" id="draggableContainer">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="25" />
-          </svg>
-        </div>
-
-        <div id="droptarget" ondrop="drop(event)" ondragover="dropAllowed(event)">
-            
-        </div> -->
-
-    <!-- <h1>Fitness One-Pager</h1>
-        <p>Versleep de dumbbell en pas de kleur aan via de color picker!</p>
-      
-        <!- Draggable dumbbell -->
-    <!-- <div class="dumbbell"></div> -->
-
-    <!-- Color Picker -->
-    <!-- <div id="colorControl">
-          <label for="colorPicker">Kies je dumbbell kleur:</label>
-          <input type="color" id="colorPicker" value="#555555">
-        </div> -->
-
-    <!-- DIMWL interactive component -->
-    <!-- <div id="dimwl">
-          <label for="prInput">Voer je PR in (kg):</label>
-          <input type="number" id="prInput" placeholder="Gewicht in kg">
-          <button id="prBtn">Check</button>
-          <p id="prResult"></p>
-        </div> -->
-
     <script src="script.js"></script>
   </body>
 </html>
