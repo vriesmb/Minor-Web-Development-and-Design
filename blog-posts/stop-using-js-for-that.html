@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style_posts.css">
+    <title>Apple-style Blog Post</title>
+</head>
+<body>
+    <div class="container">
+        <article>
+            <header>
+                <img src="https://imgs.search.brave.com/VMhr2yXSSA1OqzHDsuXlkvBujdUuXx5jcf0O8-rpqGI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9raWxp/YW52YWxraG9mLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMva2ls/aWFuLWxhcmdlcGhv/dG8tNzY5eDEwMjQu/anBn" 
+                     alt="Design Principles">
+                <div>
+                    <h1>Stop using JS for that</h1>
+                    <p>Een verhaal door Kilian Valkhof over technische principes en hierarchie van codetalen.</p>
+                    <time datetime="2025-08-15">Weekly nerd van ... datum · 4/5</time>
+                </div>
+            </header>
+
+            <section>
+                <details>
+                    <summary>
+                        <h2>Notities</h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 6v12M6 12h12"/>
+                        </svg>
+                    </summary>
+                    <div>
+                        <article>  
+                           <h3>[Stop using JS for that - Kilian]</h3>
+
+                            <ul>
+                                <li>
+                                    Electron framework voor software maken.
+
+                                    Polypane browser voor developers.
+                                    
+                                    [educcation.github.com](http://educcation.github.com/)
+                                </li>
+                                <li>
+                                    JSX />
+                                    Rule of least power
+                                    Choose the least powerful language  suitable for a given purpose
+                                </li>
+                                <li>
+                                    Er zijn altijd meerdere methodes voor functionaliteiten niet maar 1 versie.
+                                    Alles op het web werkt altijd.
+                                </li>
+                                <li>
+                                    Custom switches
+                                    Browser doet ook wat werk. Clicks registreert hij van hele labels om een checkbox heen.
+                                </li>
+                                <li>
+                                    :checked pseudo selector + ::before (transform translate x (1rem)) voor animatietje.
+                                    Appearance none = eigen styling dmv ::before en ::after
+                                    :focus '&' :focus-visible
+                                </li>
+                                <li>
+                                    ruleset zijn de hele css conditions binnen de kringelhaken {}.
+                           
+                                    input type ="color”. geeft colorpicker UI
+                                </li>
+                                <li>
+                                    **In-page transitions**
+                           
+                                    Scroll-behavior: smooth;
+                                </li>
+                                <li>
+                                    **Accessibility**
+                                    @media.   prefers-reduced-motion: no-preference
+                                </li>
+                                <li>
+                                    Progressive enhancement
+                                    <br>
+                                    #my-traget for scroll
+                                    Scroll-margin-top 100px
+                                    <br>
+                                    #my-target:target{
+                                    outline
+                                    transition ease
+                                    } voor een highlight van target
+                                </li>
+                                <li>
+                                    **Accordions and modals**
+                                    <br>
+                                    Details *open*> (open voor eerste openhebben staan good default - live attribute browser dynamisch toevoegen en weghalen als je klikt)
+                                    <br>
+                                    summary (standaard zichtbaar)
+                                    <br>
+                                    p (complete info)
+                                    <br>
+                                    details />
+                                    <br>
+                                    Marker element in accordion
+                                    summary::marker{
+                                    fontsize
+                                    content :’’;
+                                    [open] summary::marker
+                                    <br>
+                                    Summary is clickable
+                                    Summary heeft een :hover nodig want krijgt geen ander cursor anders
+                                    kan met cursor:pointer
+                                    of styling change
+                                    gebruiker moet je melden is interactief
+                                </li>
+                                <li>
+                                    **Dialog / Popup**
+                           
+                                    Dialog>
+                                    
+                                    form method”dialog”
+                                    
+                                    h1
+                                    
+                                    button type”submit” close		(want een modal sluit niet zelf, moet aangestuurd worden)
+                                    
+                                    /form
+                                    
+                                    /dialog
+                                    
+                                    moet je tripleren met button onclick “dialog.showModal
+                                    
+                                    geeft je popup / dialog
+                                    Dialog komt op top layer zit niet meer in pagina.
+                                </li>
+                                <li>
+                                    **Backdrop** is complete ruimte achter je dialog/popup
+                           
+                                    dialog:backdrop{}
+                                    
+                                    dialog{
+                                    
+                                    opacity 1
+                                    
+                                    transform scale1
+                                    
+                                    transition all 1s ease
+                                    
+                                    @starting-style{
+                                    opacity: 0;
+                                    transform: scale(0.8);
+                                    }
+                                    }
+                                </li>
+                                <li>
+                                    **Parent Selector**
+                           
+                                    :has()
+                                    
+                                    wil .. stylen alleen als er een .. in zit
+                                    
+                                    form:has(#other:checked) #other-text {
+                                    … }
+                                    
+                                    input, textarea {
+                                    field-sizing: content;
+                                    } field wordt net zo groot als input content
+                                </li>
+                                <li>
+                                    **Select element**
+                           
+                                    Select>
+                                    
+                                    option>
+                                    
+                                    option>
+                                    
+                                    /Select>
+                                    
+                                    select,
+                                    
+                                    ::picker(select) {
+                                    
+                                    appearance: base-text; (ik bepaal styling)
+                                    
+                                    }
+                                </li>
+                                <li>
+                                    **Scroll driven animations**
+                           
+                                     https://scroll-driven-animations.style/demos/cover-flow/css
+                                </li>
+                                
+                            </ul>
+                           
+                           
+    
+                          
+                          </article>  
+                    </div>
+                </details>
+
+                <details open>
+                    <summary>
+                        <h2>Persoonlijke opvatting</h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 6v12M6 12h12"/>
+                        </svg>
+                    </summary>
+                    <div>
+                        <h2>Een van de interessantste Weekly nerds</h2>  
+                        Een ontzettend logisch verhaal van kilian. Het heeft er ook echt voor gezorgd dat ik bij BT al ging nadenken van hoe ga ik het in de basis goedmaken, progressive enhancen, experimenten.. maar niet ten koste van de basis en de main code. Dit stukje wijsheid zal me in de toekomst altijd bijblijven.
+                    </div>
+                </details>
+            </section>
+        </article>
+    </div>
+
+</body>
+</html>

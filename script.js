@@ -49,7 +49,18 @@ function startPositions() {
             }, 750);
 
         }, 500);
-    } else {
+    } if (topRightStatus === true) {
+        console.log('nu naar de blog')
+        if (document.startViewTransition) {
+            document.startViewTransition(() => {
+                window.location.href = 'blog.html';
+            });
+        } else {
+            window.location.href = 'blog.html';
+        }
+    }
+
+    else {
         console.log('cloud al positioned in topright');
     }
 
